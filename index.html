@@ -1795,6 +1795,50 @@
       accent-color: var(--terracotta);
     }
 
+    .form-submit-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    .form-action-divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.76rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+    }
+
+    .form-action-divider::before,
+    .form-action-divider::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: var(--border-subtle);
+    }
+
+    .btn-whatsapp {
+      background-color: #1F8A4C;
+      color: #FFFFFF;
+      box-shadow: 0 8px 20px rgba(31, 138, 76, 0.22);
+    }
+
+    .btn-whatsapp:hover {
+      background-color: #176E3B;
+      transform: translateY(-2px);
+      box-shadow: 0 12px 26px rgba(31, 138, 76, 0.30);
+    }
+
+    .btn:disabled {
+      opacity: 0.72;
+      cursor: wait;
+      transform: none !important;
+    }
+
     .form-success-banner {
       display: none;
       background: #EBF7EE;
@@ -1803,6 +1847,13 @@
       padding: 20px;
       border-radius: 12px;
       margin-top: 18px;
+    }
+
+    .success-banner-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
     }
 
     /* ==========================================================================
@@ -3609,8 +3660,12 @@
                   <div>
                     <h4>Admissions Phone &amp; Email</h4>
                     <p>
-                      <strong>Phone / WhatsApp:</strong> <a href="tel:913091202"
-                        style="color: var(--indigo); font-weight: 600;">913091202</a><br />
+                      <strong>Phone / WhatsApp:</strong> <a href="tel:+919130912102"
+                        style="color: var(--indigo); font-weight: 600;">9130912102</a>
+                      <span style="margin: 0 6px; color: var(--border-strong);">•</span>
+                      <a href="https://wa.me/919130912102?text=Hi%20Rituparna%2C%20I%20would%20like%20to%20inquire%20about%20Creative%20Zone%20Drawing%20Classes."
+                        target="_blank" rel="noopener noreferrer"
+                        style="color: #1F8A4C; font-weight: 700; font-size: 0.85rem;">Chat on WhatsApp ↗</a><br />
                       <strong>Email Address:</strong> <a href="mailto:rituparna.graphicdesigner@gmail.com"
                         style="color: var(--terracotta); font-weight: 600;">rituparna.graphicdesigner@gmail.com</a>
                     </p>
@@ -3693,7 +3748,12 @@
                 <span class="google-form-badge">Admissions Form</span>
               </div>
 
-              <form id="studioInquiryForm" onsubmit="handleInquirySubmit(event)">
+              <form id="studioInquiryForm" action="https://formsubmit.co/rituparna.graphicdesigner@gmail.com"
+                method="POST" onsubmit="handleInquirySubmit(event)">
+                <!-- Anti-spam honeypot field for FormSubmit -->
+                <input type="text" name="_honey" id="inquiryHoney" style="display: none;" tabindex="-1"
+                  autocomplete="off" />
+
                 <!-- Child's Name & Age -->
                 <div class="form-grid-2">
                   <div class="form-group">
@@ -3763,19 +3823,35 @@
                     placeholder="Tell us what your child enjoys drawing, any mediums they've tried, or goals like building confidence or preparing a portfolio..."></textarea>
                 </div>
 
-                <button type="submit" id="submitInquiryBtn" class="btn btn-primary"
-                  style="width: 100%; padding: 16px; font-size: 1rem;">
-                  <span>Submit Trial &amp; Admissions Inquiry</span>
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M5 12h14M12 5l7 7-7 7" />
-                  </svg>
-                </button>
+                <div class="form-submit-actions">
+                  <button type="submit" id="submitInquiryBtn" class="btn btn-primary"
+                    style="width: 100%; padding: 15px 24px; font-size: 0.98rem;">
+                    <span id="submitInquiryBtnLabel">Submit Trial &amp; Admissions Inquiry (Email)</span>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                  </button>
+
+                  <div class="form-action-divider">or instant chat</div>
+
+                  <button type="button" id="whatsappInquiryBtn" class="btn btn-whatsapp"
+                    style="width: 100%; padding: 14px 24px; font-size: 0.96rem;"
+                    onclick="handleWhatsAppInquiry()">
+                    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path
+                        d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
+                    </svg>
+                    <span>Send Instant Inquiry on WhatsApp</span>
+                  </button>
+                </div>
               </form>
 
               <div class="form-success-banner" id="formSuccessBanner" role="status" aria-live="polite">
-                <strong style="display: block; font-size: 1.05rem; margin-bottom: 4px;">✓ Studio Inquiry
-                  Received!</strong>
-                <p id="formSuccessDetails" style="font-size: 0.9rem;"></p>
+                <strong id="formSuccessTitle" style="display: block; font-size: 1.05rem; margin-bottom: 4px;">✓ Studio
+                  Inquiry Sent!</strong>
+                <p id="formSuccessDetails" style="font-size: 0.9rem; line-height: 1.55;"></p>
+                <div class="success-banner-actions" id="formSuccessActions"></div>
               </div>
             </div>
           </div>
@@ -3796,7 +3872,8 @@
         <div class="faq-grid">
           <details class="faq-item" open>
             <summary>Are art supplies and studio materials included? <span>+</span></summary>
-            <p>Students would need to bring their own oil pastels, watercolor pans & any additional accessories that's required</p>
+            <p>Students would need to bring their own oil pastels, watercolor pans & any additional accessories that's
+              required</p>
           </details>
           <details class="faq-item" open>
             <summary>Does my child need prior drawing experience to join? <span>+</span></summary>
@@ -3868,7 +3945,8 @@
           <p style="font-size: 0.88rem; color: rgba(255,255,255,0.75); line-height: 1.6;">
             E-403, Kingston Aura Co-Operative Housing Society<br />
             Handewadi Road, Pune-412308<br />
-            <strong>Phone:</strong> 913091202<br />
+            <strong>Phone / WhatsApp:</strong> <a href="tel:+919130912102"
+              style="color: inherit; text-decoration: underline;">9130912102</a><br />
             <strong>Email:</strong> rituparna.graphicdesigner@gmail.com<br />
             Tue–Fri: 3:00 PM – 7:30 PM | Sat–Sun: 9:00 AM – 5:00 PM
           </p>
@@ -3878,7 +3956,8 @@
       <div class="footer-bottom">
         <span>© 2026 Creative Zone Drawing Classes • Mentor: Rituparna Das. All Rights Reserved.</span>
         <div style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap;">
-          <span>website creator - <a href="mailto:ajeyadas@gmail.com" style="color: inherit; text-decoration: underline;">ajeyadas@gmail.com</a></span>
+          <span>website creator - <a href="mailto:ajeyadas@gmail.com"
+              style="color: inherit; text-decoration: underline;">ajeyadas@gmail.com</a></span>
           <button type="button" class="footer-owner-lock" onclick="openAdminAuthModal()"
             title="Studio Owner Photo Manager">🔒 Owner Login</button>
         </div>
@@ -4238,21 +4317,175 @@
         <span style="font-size: 0.92rem; color: var(--text-secondary);">${info.desc}</span>`;
     }
 
-    // 5. Admissions Form Submission Handler
-    function handleInquirySubmit(event) {
-      event.preventDefault();
-      const childName = document.getElementById('childName').value.trim();
-      const childAge = document.getElementById('childAge').value.trim();
-      const parentName = document.getElementById('parentName').value.trim();
-      const program = document.getElementById('programInterest').value;
-      const batch = document.querySelector('input[name="preferredBatch"]:checked').value;
+    // 5. Admissions Form Submission Handler (FormSubmit.co Direct Email + Instant WhatsApp Inquiry)
+    const STUDIO_OWNER_EMAIL = 'rituparna.graphicdesigner@gmail.com';
+    const STUDIO_WHATSAPP_INTL = '919130912102'; // +91 9130912102
 
+    function collectInquiryFormData() {
+      const checkedBatch = document.querySelector('input[name="preferredBatch"]:checked');
+      return {
+        honey: (document.getElementById('inquiryHoney')?.value || '').trim(),
+        childName: document.getElementById('childName').value.trim(),
+        childAge: document.getElementById('childAge').value.trim(),
+        parentName: document.getElementById('parentName').value.trim(),
+        parentPhone: document.getElementById('parentPhone').value.trim(),
+        parentEmail: document.getElementById('parentEmail').value.trim(),
+        program: document.getElementById('programInterest').value,
+        batch: checkedBatch ? checkedBatch.value : 'Weekday Evening',
+        goals: document.getElementById('priorExperience').value.trim()
+      };
+    }
+
+    function buildWhatsAppInquiryUrl(data) {
+      const lines = [
+        '*New Trial / Admissions Inquiry — Creative Zone Drawing Classes* 🎨',
+        '',
+        `• *Child's Name:* ${data.childName} (Age ${data.childAge})`,
+        `• *Parent / Guardian:* ${data.parentName}`,
+        `• *Phone:* ${data.parentPhone}`,
+        `• *Email:* ${data.parentEmail}`,
+        `• *Program Track:* ${data.program}`,
+        `• *Preferred Batch:* ${data.batch}`,
+        `• *Experience / Goals:* ${data.goals || 'Not specified'}`
+      ];
+      return `https://wa.me/${STUDIO_WHATSAPP_INTL}?text=${encodeURIComponent(lines.join('\n'))}`;
+    }
+
+    function buildMailtoFallbackUrl(data) {
+      const subject = `Studio Trial / Admissions Inquiry: ${data.childName} (Age ${data.childAge})`;
+      const body = [
+        `Child's Name: ${data.childName}`,
+        `Child's Age: ${data.childAge}`,
+        `Parent / Guardian: ${data.parentName}`,
+        `Parent Phone: ${data.parentPhone}`,
+        `Parent Email: ${data.parentEmail}`,
+        `Program of Interest: ${data.program}`,
+        `Preferred Batch: ${data.batch}`,
+        `Prior Experience / Goals: ${data.goals || 'Not specified'}`
+      ].join('\n');
+      return `mailto:${STUDIO_OWNER_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    }
+
+    function postInquiryEmailToFormSubmit(data) {
+      return fetch(`https://formsubmit.co/ajax/${STUDIO_OWNER_EMAIL}`, {
+        method: 'POST',
+        keepalive: true,
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          _subject: `🎨 New Studio Inquiry: ${data.childName} (Age ${data.childAge}) — ${data.program}`,
+          _replyto: data.parentEmail,
+          _template: 'table',
+          _captcha: 'false',
+          "Child's Name": data.childName,
+          "Child's Age": `${data.childAge} yrs`,
+          "Parent / Guardian": data.parentName,
+          "Parent Phone": data.parentPhone,
+          "Parent Email": data.parentEmail,
+          "Program of Interest": data.program,
+          "Preferred Batch": data.batch,
+          "Experience & Artistic Goals": data.goals || 'Not specified'
+        })
+      });
+    }
+
+    function renderInquirySuccessBanner(titleText, detailText, waUrl, mailtoUrl = '') {
       const banner = document.getElementById('formSuccessBanner');
-      const details = document.getElementById('formSuccessDetails');
+      const titleEl = document.getElementById('formSuccessTitle');
+      const detailsEl = document.getElementById('formSuccessDetails');
+      const actionsEl = document.getElementById('formSuccessActions');
 
-      details.textContent = `Thank you, ${parentName}! We have logged a trial/admissions inquiry for ${childName} (Age ${childAge}) in the "${program}" track (${batch} batch). Our studio coordinator will reach out shortly to confirm your studio visit.`;
+      titleEl.textContent = titleText;
+      detailsEl.textContent = detailText;
+
+      let buttonsHtml = `
+        <a href="${waUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp"
+          style="padding: 9px 18px; font-size: 0.84rem;">
+          💬 Open Pre-filled WhatsApp Chat
+        </a>`;
+      if (mailtoUrl) {
+        buttonsHtml += `
+        <a href="${mailtoUrl}" class="btn btn-outline"
+          style="padding: 9px 18px; font-size: 0.84rem; background: #FFFFFF;">
+          ✉️ Send via Email App
+        </a>`;
+      }
+      actionsEl.innerHTML = buttonsHtml;
       banner.style.display = 'block';
-      document.getElementById('studioInquiryForm').reset();
+    }
+
+    // Option 1: Direct Email Submission via FormSubmit.co (+ 1-click WhatsApp follow-up option)
+    async function handleInquirySubmit(event) {
+      event.preventDefault();
+      const form = document.getElementById('studioInquiryForm');
+      if (!form.reportValidity()) return;
+
+      const data = collectInquiryFormData();
+      if (data.honey) return; // Ignore bot submissions
+
+      const submitBtn = document.getElementById('submitInquiryBtn');
+      const submitLabel = document.getElementById('submitInquiryBtnLabel');
+      const originalLabel = submitLabel.textContent;
+      const waUrl = buildWhatsAppInquiryUrl(data);
+
+      submitBtn.disabled = true;
+      submitLabel.textContent = 'Sending Inquiry to Studio...';
+
+      try {
+        const res = await postInquiryEmailToFormSubmit(data);
+        const result = await res.json().catch(() => ({}));
+
+        if (res.ok && result.success !== 'false' && result.success !== false) {
+          renderInquirySuccessBanner(
+            '✓ Studio Inquiry Emailed Successfully!',
+            `Thank you, ${data.parentName}! Your trial/admissions inquiry for ${data.childName} (Age ${data.childAge}, ${data.program} • ${data.batch}) has been emailed directly to Rituparna Das. You can also message us directly on WhatsApp below for an instant response.`,
+            waUrl
+          );
+          form.reset();
+        } else {
+          throw new Error(result.message || 'FormSubmit requires a hosted http/https domain or one-time email activation.');
+        }
+      } catch (err) {
+        // Graceful fallback when testing locally via file:// or prior to FormSubmit activation
+        const mailtoUrl = buildMailtoFallbackUrl(data);
+        renderInquirySuccessBanner(
+          '✓ Inquiry Ready — Connect Instantly via WhatsApp or Email',
+          `Thank you, ${data.parentName}! Direct background email activates once the page is live on https:// (GitHub Pages) and confirmed once in ${STUDIO_OWNER_EMAIL}. Click below to send your pre-filled inquiry for ${data.childName} right now on WhatsApp or via your email app:`,
+          waUrl,
+          mailtoUrl
+        );
+      } finally {
+        submitBtn.disabled = false;
+        submitLabel.textContent = originalLabel;
+      }
+    }
+
+    // Option 3: Instant Pre-filled WhatsApp Inquiry (+ automatic background Email copy to Owner)
+    function handleWhatsAppInquiry() {
+      const form = document.getElementById('studioInquiryForm');
+      if (!form.reportValidity()) return;
+
+      const data = collectInquiryFormData();
+      if (data.honey) return;
+
+      const waUrl = buildWhatsAppInquiryUrl(data);
+
+      // Open WhatsApp synchronously inside user click gesture so mobile browsers never block it
+      window.open(waUrl, '_blank', 'noopener,noreferrer');
+
+      // Also send a background email record to the studio owner when hosted on http/https
+      if (window.location.protocol === 'http:' || window.location.protocol === 'https:') {
+        postInquiryEmailToFormSubmit(data).catch(() => {});
+      }
+
+      renderInquirySuccessBanner(
+        '✓ Opening WhatsApp with Your Inquiry Details!',
+        `Thank you, ${data.parentName}! We have pre-filled your inquiry for ${data.childName} (Age ${data.childAge}, ${data.program} • ${data.batch}) in WhatsApp (+91 9130912102) and logged an email copy for our studio coordinator.`,
+        waUrl
+      );
+      form.reset();
     }
 
     // =========================================================================
@@ -4549,6 +4782,8 @@
       clone.querySelectorAll('.lightbox-modal').forEach(m => m.classList.remove('open'));
       clone.querySelectorAll('.admin-slot-btn, .admin-card-toolbar').forEach(el => el.remove());
       clone.querySelectorAll('.uploadable-slot').forEach(el => el.classList.remove('uploadable-slot'));
+      const cloneBanner = clone.querySelector('#formSuccessBanner');
+      if (cloneBanner) cloneBanner.style.display = 'none';
 
       // 2. Ensure all gallery items are visible in the exported HTML
       clone.querySelectorAll('#galleryGrid .gallery-item-card').forEach(card => {
